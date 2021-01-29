@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <style>
+
+    * { font-family: "Oxygen"; font-size: 16px; }
+
+    p, li {font-size: 16px; line-height: 1.5rem;}
+
+    .v-list-item__subtitle, .v-list-item__title {
+        overflow: visible; 
+         text-overflow: none;
+        white-space: wrap;
+    }
+
+    .container {
+      max-width: 750px;
+    }
+
+    .v-list-item {
+      background: #fff;
+      border-bottom: 1px solid #EBF2F4;
+    }
+
+    .bg-transparent {
+      background: transparent !important;
+    }
+
+    .flow, .v-stepper {
+      background: #DDEBEB !important;
+    }
+
+    .v-stepper, .v-stepper__header {
+      box-shadow: none;
+    }
+
+    .theme--light.v-application {
+      background: #f2f5f5;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 1.375rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-weight: 400;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .v-card__text {
+      font-size: 1rem;
+    }
+
+    .v-card__subtitle {
+      font-size: 1.3rem;
+      line-height: 1.8rem;
+    }
+
+    .v-sheet.v-card {
+      border-radius: 0;
+      background: #DDEBEB;
+    }
+
+    .theme--light.v-label, .theme--light.v-card .v-card__subtitle, .theme--light.v-card>.v-card__text {
+      color: rgba(0,0,0,.9);
+    }
+
+    .v-card__title {
+      font-weight: 700;
+      font-size: 1.375rem;
+      margin-bottom: 1rem;
+      word-break: break-word;
+    }
+
+    .v-application .primary {
+      background-color: #ee5c47 !important;
+      border-color: #ee5c47 !important;
+  }
+
+  .v-stepper__step {
+    padding-right: 20px;
+    padding-left: 0;
+  }
+
+    img {
+      max-width: 100%
+    }
+
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+  <v-app id="inspire">
+
+    <v-container>
+      
+
+
+      <v-row
+        class="mb-6 flow px-5"
+        justify="center"
+        no-gutters
+      >
+      
+
+
+        <v-col md="12"> 
+          <v-stepper v-model="e1" flat>
+            <v-btn  text @click="e1 = 1" v-if="e1 == 6" class="ma-4">Forfra</v-btn>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+
+                <v-card
+                  class="mb-12"
+                  flat
+                >
+                  <v-card-title class="font-weight-bold">
+                    Hvilken tilstand har dine trævinduer?
+                  </v-card-title>
+                  
+                  <v-card-subtitle>
+                        <p>Vinduer og døre bliver udsat for lidt af hvert her i det nordiske klima, hvor vi både har varme, kulde, fugt, frost og udtørring.</p>
+
+    <p>Trævinduer er særligt udsatte, og derfor bør du tjekke træet for fugt og råd ofte. Det kan du gøre ved forsigtigt at stikke en tynd skruetrækker ind i træet. Den lille vinduesliste i bunden af vinduet, vil meget ofte være i markant dårligere stand end resten af vinduet.</p>
+                  </v-card-subtitle>
+                  
+                  <v-card-text>
+                  <v-radio-group v-model="tilstand">
+                    <v-list-item >
+                      <v-list-item-action>
+                        <v-radio value="god"></v-radio>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title class="text-wrap">kan stikke en tynd skruetrækker 1-3 mm ind i træet</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item >
+                      <v-list-item-action>
+                        <v-radio value="okay"></v-radio>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title class="text-wrap">kan stikke en tynd skruetrækker 3-6 mm ind i træet</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-action>
+                        <v-radio value="slem"></v-radio>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title class="text-wrap">kan stikke en tynd skruetrækker mere end 6 mm ind i træet</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-radio-group>
+
+                 </v-card-text>
+                   
+                 <v-card-actions>
+
+                  <v-spacer></v-spacer>
+                    <v-btn
+                      v-if="tilstand == 'bad'"
+                      @click="e1 = 6"
+                      color="primary"
+                      elevation="2"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+                   <v-btn
+                      v-else
+                      color="primary"
+                      @click="e1 = 2"
+                      elevation="2"
+                      :disabled="!tilstand"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+
+                    
+                 </v-card-actions>
+                  
+                </v-card>
+                
+              </v-stepper-content>
+              <v-stepper-content step="2">
+
+                <v-card
+                  class="mb-12"
+                  flat
+                >
+                  <v-card-title class="font-weight-bold">
+                    Er der tegn på utætheder i vinduet?
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <p>Her er 2 måder du kan måle utætheder på</p>
+                    <ol>
+                      <li>
+                        <p>Stil et tændt stearinlys på vinduespladen, og se om flammen bevæger sig. (Tætningslister og fuger)</p>
+                      </li>
+
+                      <li>
+                        <p>Åbn vinduet, stik et stykke papir halvt ud, og luk vinduet igen. Forsøg derefter at trække papiret til dig igen – hvis du ikke oplever stor modstand, er vinduet utæt.</p>
+                      </li>
+                    </ol>
+                  </v-card-subtitle>
+                  <v-card-text>
+                  <v-radio-group v-model="utaethed">
+        
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="ja"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Ja</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="nej"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Nej</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  </v-radio-group>
+
+                 </v-card-text>
+                   
+                 <v-card-actions>
+
+                  <v-spacer></v-spacer>
+                   <v-btn
+                      color="primary"
+                      :disabled="!utaethed"
+                      @click="e1 = 3"
+                      elevation="2"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+                 </v-card-actions>
+                  
+                </v-card>
+                
+              </v-stepper-content>
+              <v-stepper-content step="3">
+
+                <v-card
+                  class="mb-12"
+                  flat
+                >
+                  <v-card-title class="font-weight-bold">
+                    Er der tegn på utætheder rundt om vinduet
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <p>Kommer der kold luft mellem vindue og væg? Prøv evt. med at holde et lys langs kanten en dag hvor der er lidt blæst.</p>
+                  </v-card-subtitle>
+                  <v-card-text>
+                  
+                  <v-radio-group v-model="utaethedude">
+
+                    <v-list-item >
+                      <v-list-item-action>
+                        <v-radio value="ja"></v-radio>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title class="text-wrap">Ja</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item >
+                      <v-list-item-action>
+                        <v-radio value="nej"></v-radio>
+                      </v-list-item-action>
+                      <v-list-item-content>
+                        <v-list-item-title class="text-wrap">Nej</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                  </v-radio-group>
+
+                 </v-card-text>
+                   
+                 <v-card-actions>
+
+                  <v-spacer></v-spacer>
+                   <v-btn
+                      color="primary"
+                      :disabled="!utaethed"
+                      @click="e1 = 4"
+                      elevation="2"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+                 </v-card-actions>
+                  
+                </v-card>
+                
+              </v-stepper-content>
+              <v-stepper-content step="4">
+
+                <v-card
+                  class="mb-12"
+                  flat
+                >
+                  <v-card-title class="font-weight-bold">
+                    Hvordan ser vinduerne ud?
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <p>Lav et visuelt eftersyn. Se på dem med kritiske øjne ud fra. Åbn og luk alle vinduerne for at prøve hængslerne</p>
+                  </v-card-subtitle>
+                  <v-card-text>
+        
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-checkbox v-model="udseende_maling"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Malingen/overfladebehandlingen skaller af rammen eller revner</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-checkbox v-model="udseende_haengsler"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Hængsler og beslag er rustne</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-checkbox v-model="udseende_samlinger"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Samlingerne i rammen er ved at gå fra hinanden</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-checkbox v-model="udseende_skaevt"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Vinduet er svært at åbne og lukke. Det er blevet skævt, det binder eller det har slået sig.</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-checkbox v-model="udseende_punkteret"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Vinduet er punkteret, så glasset er mælkehvidt eller der er dug mellem glassene.</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                 </v-card-text>
+                   
+                 <v-card-actions>
+
+                  <v-spacer></v-spacer>
+                   <v-btn
+                      color="primary"
+                      @click="e1 = 5"
+                      elevation="2"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+                 </v-card-actions>
+                  
+                </v-card>
+                
+              </v-stepper-content>
+              <v-stepper-content step="5">
+
+                <v-card
+                  class="mb-12"
+                  flat
+                >
+                  <v-card-title class="font-weight-bold">
+                    Hvilken type glas er der i?
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <p>lorme ipsum</p>
+                  </v-card-subtitle>
+                  <v-card-text>
+                  <v-radio-group v-model="type">
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="etlag"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Ét lagglas</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="termo"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Termoruder / tolagsglas</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="forsats"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Gamle vinduer med forsatsrude</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-item-action>
+                      <v-radio value="koblede"></v-radio>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title class="text-wrap">Koblede rammer</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                </v-radio-group>
+
+                 </v-card-text>
+                   
+                 <v-card-actions>
+
+                  <v-spacer></v-spacer>
+                   <v-btn
+                      color="primary"
+                      @click="e1 = 6"
+                      elevation="2"
+                      :disabled="!type"
+                      tile
+                      x-large
+                    >
+                      Næste
+                    </v-btn>
+                 </v-card-actions>
+                  
+                </v-card>
+                
+              </v-stepper-content>
+
+              <v-stepper-content step="6">
+                <v-card
+                 
+                 flat
+                 v-if="tilstand == 'bad'"
+                >
+                 
+                 <div class="">
+                  <v-card-subtitle class="mb-0">
+                     Resultat
+                  </v-card-subtitle>
+                  <v-card-title class="font-weight-bold mt-0">
+                    Du bør udskifte dine vinduer
+                 </v-card-title>
+
+                </div>
+                  <v-card-text>
+
+                    <v-row class="resultrow">
+                      <v-col cols="12">
+                        <p>
+                          tekst
+                        </p>
+                      </v-col>
+                    </v-row>
+                    <v-spacer class="py-4"></v-spacer>
+                  </v-card-text>
+
+                   <v-card-actions class="justify-center flex-column">
+                    <v-btn
+                      color="white"
+                      href="#"
+                      elevation="2"
+                      tile
+                      x-large
+                    >
+                      Link til artikel
+                    </v-btn>
+
+                  </v-card-actions>
+               
+                </v-card>
+                <v-card
+                 
+                 flat
+                 v-else
+                >
+                 
+                 <div class="">
+                  <v-card-subtitle class="mb-0">
+                     Resultat
+                  </v-card-subtitle>
+                  <v-card-title class="font-weight-bold mt-0">
+                    Du kan nøjes med at renovere dine vinduer
+                 </v-card-title>
+                   
+                 </div>
+
+                  <v-card-text>
+                    <div class="overline">
+                      Tilstand
+                    </div>
+
+                    <v-row v-if="tilstand_1" class="resultrow">
+                      <v-col cols="12">
+                        <p>Træet i dine vinduer er i god stand, så du skal blot sørge for almindelig vedligeholdelse med overfladebehandling.</p>
+                      </v-col>
+                    </v-row>
+
+                    <v-row v-if="tilstand_2" class="resultrow">
+                      <v-col cols="12">
+                        <p>Træet i dine vinduer har brug for lidt opmærksomhed. Man kan udskifte dele af træværket. En tømrer eller snedker kan hjælpe med den slags arbejde.</p>
+                      </v-col>
+                    </v-row>
+
+                    <v-spacer class="py-4"></v-spacer>
+
+
+                  </v-card-text>
+
+              
+                  <v-divider class="py-8"></v-divider>
+
+                  
+               </v-card>
+               
+              
+
+                
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+          
+          
+
+        </v-row>
+
+      </v-container>
+      <v-card
+          class="mt-12"
+          color="grey lighten-2"
+          flat
+          >
+    <v-card-text>
+      <v-row>
+        <v-col cols="6">
+          <p>
+            tilstand : {{ tilstand }}
+          </p>
+          <p> 
+            utaethed : {{ utaethed }}
+          </p>
+          <p>
+            utaethed_ude : {{ utaethedude }}
+          </p>
+          <p>
+            udseende_punkteret : {{ udseende_punkteret }}
+          </p>
+          <p>
+            udseende_skaevt : {{ udseende_skaevt }}
+          </p>
+          <p>
+            udseende_samlinger : {{ udseende_samlinger }}
+          </p>
+          <p>
+            udseende_haengsler : {{ udseende_haengsler }}
+          </p>
+          <p>
+            udseende_maling : {{ udseende_maling }}
+          </p>
+          </p>
+          <p>
+            type : {{ type }}
+          </p>
+        </v-col>
+      </v-row>
+      
+      
+    </v-card-text>
+  </v-card>
+   </v-app>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify({
+        theme: {
+          themes: {
+            light: {
+              primary: '#ee5c47',
+              secondary: '#fff',
+              anchor: '#fff',
+            },
+          },
+        },
+      }),
+      data () {
+        return {
+          tilstand: '',
+          utaethed: '',
+          utaethedude: '',
+          udseende_punkteret: '',
+          udseende_skaevt: '',
+          udseende_samlinger: '',
+          udseende_haengsler: '',
+          udseende_maling: '',
+          type: '',
+          e1: 1,
+        }
+      },
+    })
+
+  </script>
+</body>
+</html>
