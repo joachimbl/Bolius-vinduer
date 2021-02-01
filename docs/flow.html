@@ -113,7 +113,6 @@
 
         <v-col md="12"> 
           <v-stepper v-model="e1" flat>
-            <v-btn  text @click="e1 = 1" v-if="e1 == 6" class="ma-4">Forfra</v-btn>
             <v-stepper-items>
               <v-stepper-content step="1">
 
@@ -126,9 +125,10 @@
                   </v-card-title>
                   
                   <v-card-subtitle>
-                        <p>Vinduer og døre bliver udsat for lidt af hvert her i det nordiske klima, hvor vi både har varme, kulde, fugt, frost og udtørring.</p>
+                    <p>Vinduer og døre bliver udsat for lidt af hvert her i det nordiske klima, hvor vi både har varme, kulde, fugt, frost og udtørring.</p>
 
-    <p>Trævinduer er særligt udsatte, og derfor bør du tjekke træet for fugt og råd ofte. Det kan du gøre ved forsigtigt at stikke en tynd skruetrækker ind i træet. Den lille vinduesliste i bunden af vinduet, vil meget ofte være i markant dårligere stand end resten af vinduet.</p>
+                    <p>Trævinduer er særligt udsatte, og derfor bør du tjekke træet for fugt og råd ofte. Det kan du gøre ved forsigtigt at stikke en tynd skruetrækker ind i træet. Den lille vinduesliste i bunden af vinduet, vil meget ofte være i markant dårligere stand end resten af vinduet.</p>
+                    
                   </v-card-subtitle>
                   
                   <v-card-text>
@@ -242,6 +242,15 @@
                  <v-card-actions>
 
                   <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      @click="e1 = e1 - 1"
+                      text
+                      x-large
+                    >
+                      Tilbage
+                    </v-btn>
+
                    <v-btn
                       color="primary"
                       :disabled="!utaethed"
@@ -298,9 +307,17 @@
                  <v-card-actions>
 
                   <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      @click="e1 = e1 - 1"
+                      text
+                      x-large
+                    >
+                      Tilbage
+                    </v-btn>
                    <v-btn
                       color="primary"
-                      :disabled="!utaethed"
+                      :disabled="!utaethedude"
                       @click="e1 = 4"
                       elevation="2"
                       tile
@@ -377,6 +394,14 @@
                  <v-card-actions>
 
                   <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      @click="e1 = e1 - 1"
+                      text
+                      x-large
+                    >
+                      Tilbage
+                    </v-btn>
                    <v-btn
                       color="primary"
                       @click="e1 = 5"
@@ -430,7 +455,7 @@
                       <v-list-item-title class="text-wrap">Gamle vinduer med forsatsrude</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-list-item >
+                  <v-list-item>
                     <v-list-item-action>
                       <v-radio value="koblede"></v-radio>
                     </v-list-item-action>
@@ -446,6 +471,14 @@
                  <v-card-actions>
 
                   <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      @click="e1 = e1 - 1"
+                      text
+                      x-large
+                    >
+                      Tilbage
+                    </v-btn>
                    <v-btn
                       color="primary"
                       @click="e1 = 6"
@@ -514,34 +547,140 @@
                   <v-card-subtitle class="mb-0">
                      Resultat
                   </v-card-subtitle>
-                  <v-card-title class="font-weight-bold mt-0">
+                  <v-card-title class="font-weight-bold ma-0 py-0">
                     Du kan nøjes med at renovere dine vinduer
                  </v-card-title>
                    
                  </div>
 
                   <v-card-text>
-                    <div class="overline">
-                      Tilstand
+                    <div v-if="tilstand == 'god'">
+                      Træet i dine vinduer er i god stand, så du skal blot sørge for almindelig vedligeholdelse med overfladebehandling.
+
+                    </div>
+                    <div v-if="tilstand == 'okay'">
+                      Træet i dine vinduer har brug for lidt opmærksomhed. Man kan udskifte dele af træværket. En tømrer eller snedker kan hjælpe med den slags arbejde.
                     </div>
 
-                    <v-row v-if="tilstand_1" class="resultrow">
-                      <v-col cols="12">
-                        <p>Træet i dine vinduer er i god stand, så du skal blot sørge for almindelig vedligeholdelse med overfladebehandling.</p>
-                      </v-col>
-                    </v-row>
+                    <v-spacer class="py-2"></v-spacer>
 
-                    <v-row v-if="tilstand_2" class="resultrow">
-                      <v-col cols="12">
-                        <p>Træet i dine vinduer har brug for lidt opmærksomhed. Man kan udskifte dele af træværket. En tømrer eller snedker kan hjælpe med den slags arbejde.</p>
-                      </v-col>
-                    </v-row>
+                    <div v-if="utaethed == 'ja'">
+                      Meget ofte skyldes utætheder i selve vinduet, at tætningslisterne er slidte og skal udskiftes. Det kan også være at du skal efterse hængslerne for at se om det kunne være vinduesrammen som ikke lukker ordentligt i vindueskarmen.
+                    </div>
+                    <div v-if="utaethed == 'nej'">
+                      Dine tætningslister holder vinduet tæt. Hold øje med de ikke bliver for stive eller ødelagte.
+                    </div>
 
-                    <v-spacer class="py-4"></v-spacer>
+                    <v-spacer class="py-2"></v-spacer>
 
+                    <div v-if="utaethedude == 'ja'">
+                      Fugerne mellem vinduet og ydervæggen er afgørende for at der ikke kommer træk ind. Kig først på om fugerne udvendigt er intakte. Er de det kan det skyldes at der ikke er isolering eller andet mellem udvendig og indvendig fuge, hvilket gør at kulden kan skabe kuldenedfald gennem fugen.
+                    </div>
+                    <div v-if="utaethedude == 'nej'">
+                      Det ser ud til at fugerne mellem vindue og ydervæg er i orden. Husk at holde øje med dem, så der ikke trænger vand, kulde og vind ind.
+                    </div>
 
+                    <v-spacer class="py-2"></v-spacer>
+
+                    <div v-if="udseende_maling">
+                      Fordi malingen eller overfladebehandlingen ikke er vedligeholdt, så kan vinduet sagtens være i god stand. Uanset hvilken behandling vinduerne har fået tidligere, så er det muligt at forlænge levetiden markant ved at sørge for at de er vedligeholdt og overfladebehandlet.
+                    </div>
+                    <div v-if="udseende_punkteret">
+                      Rustne hængsler vil ofte kunne behandles så de atter åbner nemt. For at få det bedste resultat skal de afmonteres, afrenses, rustbehandles og males 
+                    </div>
+                    <div v-if="udseende_skaevt">
+                      tekst ved udseende_skaevt
+                    </div>
+                    <div v-if="udseende_samlinger">
+                      tekst ved udseende_samlinger
+                    </div>
+                    <div v-if="udseende_haengsler">
+                      tekst ved udseende_haengsler
+                    </div>
+
+                    <v-spacer class="py-2"></v-spacer>
+
+                    <div v-if="type == 'etlag'">
+                      tekst ved type etlag
+                    </div>
+                    <div v-if="type == 'forsats'">
+                      tekst ved type forsats
+                    </div>
+                    <div v-if="type == 'termo'">
+                      tekst ved type termo
+                    </div>
+                    <div v-if="type == 'koblede'">
+                      tekst ved type koblede
+                    </div>
+                    
                   </v-card-text>
 
+                  <v-list>
+
+                    <v-list-item 
+                      v-if="tilstand == 'god'"
+                      :href="'https://www.bolius.dk/saadan-maler-du-gamle-traevinduer-17051'">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                           Sådan maler du gamle trævinduer med et flot og holdbart resultat
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item 
+                      v-if="tilstand == 'okay'"
+                      :href="'https://www.bolius.dk/typiske-skader-paa-vinduer-og-doere-af-trae-19653'">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                           Typiske skader på vinduer og døre af træ
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item 
+                      v-if="utaethed == 'ja'"
+                      :href="'https://www.bolius.dk/saadan-skifter-du-let-taetningslister-11044'">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                           Sådan skifter du let tætningslister
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                           Lorem ipsum
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                           Lorem ipsum
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                  </v-list>
+
+                  
               
                   <v-divider class="py-8"></v-divider>
 
@@ -575,7 +714,7 @@
             utaethed : {{ utaethed }}
           </p>
           <p>
-            utaethed_ude : {{ utaethedude }}
+            utaethedude : {{ utaethedude }}
           </p>
           <p>
             udseende_punkteret : {{ udseende_punkteret }}
@@ -616,7 +755,7 @@
             light: {
               primary: '#ee5c47',
               secondary: '#fff',
-              anchor: '#fff',
+              anchor: '#ee5c47',
             },
           },
         },
